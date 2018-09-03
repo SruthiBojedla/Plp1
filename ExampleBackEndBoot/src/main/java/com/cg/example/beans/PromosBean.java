@@ -26,6 +26,10 @@ public class PromosBean {
 	public void setDiscount(Integer discount) {
 		this.discount = discount;
 	}
+	
+	public Integer getDiscount() {
+		return discount;
+	}
 	public PromosBean(String promoCode, Integer discount, Date timePeriod) {
 		super();
 		this.promoCode = promoCode;
@@ -35,5 +39,11 @@ public class PromosBean {
 	public PromosBean() {
 		super();
 	}
+	@Override
+	public String toString() {
+		return "PromosBean [promoCode=" + promoCode + ", discount=" + discount + ", timePeriod=" + timePeriod + "]";
+	}
+	
+	
 
 }

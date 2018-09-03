@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Product Management</title>
 </head>
 <body>
 	<div class="site-name" style="color: Red; font-size: 50px">
@@ -14,15 +14,21 @@
 
 	<div class="header-bar" align="Right">
 		<j:if test="${pageContext.request.userPrincipal.name != null}">
-        Hello Japan  &nbsp;|&nbsp;
-           <a href="${pageContext.request.contextPath}/logout">Logout</a>
-			<br>
-			<br>
+        Hello Merchant  &nbsp;|&nbsp;
+            <a href="${pageContext.request.contextPath}/logout"
+					onclick="alertName()">Logout</a>
+				<br>
+				<br>
+				<script type="text/javascript">
+					function alertName() {
+						alert("Logged out Successfully");
+					}
+				</script>
 			<a href="Home.jsp""${pageContext.request.contextPath}/home">Home
 			</a> &nbsp;|&nbsp;
              <a href="${pageContext.request.contextPath}/order">Order
 			</a>&nbsp;|&nbsp;
-            <a href="${pageContext.request.contextPath}/contact">Contact
+            <a href="MessagesPage.jsp""${pageContext.request.contextPath}/contact">Messages
 			</a>&nbsp;|&nbsp;
 			<a href="DandP.jsp""${pageContext.request.contextPath}/discounts&promos">Discounts
 				& Promos </a>
@@ -36,10 +42,15 @@
 	<br>
 	<br>
 	<div align="center">
-		<a href="AddProduct.jsp""${pageContext.request.contextPath}/addProduct">Add
-			Product </a><br /> <a href="RemoveProduct.jsp""${pageContext.request.contextPath}/removeProduct">Remove
-			Product </a><br /> <a href="UpdateProduct.jsp""${pageContext.request.contextPath}/updateProduct">Update
-			Product </a>
+		<a href="AddProduct.jsp""${pageContext.request.contextPath}/addProduct">Add Product </a><br/><br/>
+		<a href="RemoveProduct.jsp""${pageContext.request.contextPath}/removeProduct">Remove Product </a><br/><br/>
+		<a href="UpdateProduct.jsp""${pageContext.request.contextPath}/updateProduct">Update Product </a><br/><br/>
+		<a href="FindProductById.jsp""${pageContext.request.contextPath}/findbyid">Find Product By Id </a><br/><br/>
+		<a href="FindProductByCategory.jsp""${pageContext.request.contextPath}/findbycategory">Find Product By Category </a><br/><br/>
+		<a href="RemoveCategory.jsp""${pageContext.request.contextPath}/removeCategory">Remove Category</a><br/><br/>
+		<a href="ViewAllCategories.jsp""${pageContext.request.contextPath}/viewAllCategories">View All Categories </a><br/><br/>
+		
+		
 	</div>
 </body>
 </html>

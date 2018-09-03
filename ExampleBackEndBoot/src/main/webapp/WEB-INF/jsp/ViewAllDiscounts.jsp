@@ -1,22 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>CapStore</title>
+<meta charset="ISO-8859-1">
+<title>All Discounts</title>
 </head>
 <body>
-	<div class="header-container">
+<form action="">
 		<div class="site-name" style="color: Red; font-size: 50px">
 			<b>CapStore</b>&nbsp; &nbsp; <img
 				src="C:\Users\bsruthi\Desktop\capstore.png" width="125" height="125" />
 		</div>
+
 		<div class="header-bar" align="Right">
 			<j:if test="${pageContext.request.userPrincipal.name != null}">
-        Hello Merchant${merchant.merchantName}  &nbsp;|&nbsp;
-           <a href=""
-					"${pageContext.request.contextPath}/logout"
+        Hello Merchant  &nbsp;|&nbsp;
+           <a href="""${pageContext.request.contextPath}/logout"
 					onclick="alertName()">Logout</a>
 				<br>
 				<br>
@@ -25,27 +25,45 @@
 						alert("Logged out Successfully");
 					}
 				</script>
-
 				<a href="Home.jsp""${pageContext.request.contextPath}/home">Home
 				</a> &nbsp;|&nbsp;
              <a href="ProductManagement.jsp""${pageContext.request.contextPath}/productManagement">Product
 					Management </a>&nbsp;|&nbsp;
              <a href="${pageContext.request.contextPath}/order">Order
 				</a>&nbsp;|&nbsp;
-            <a href="MessagesPage.jsp""${pageContext.request.contextPath}/Messages">Messages
+            <a href="MessagesPage.jsp""${pageContext.request.contextPath}/contact">Messages
 				</a>&nbsp;|&nbsp;
 			<a href="DandP.jsp""${pageContext.request.contextPath}/discounts&promos">Discounts
 					& Promos </a>
-
 			</j:if>
-			<br> <br> <br> <br>
 		</div>
-		<%-- <table>
-		<tr><td>Merchant Id</td><td>:${merchant.merchantId}</td></tr>
-		<tr><td>Merchant Name</td><td>:${merchant.merchantName}</td></tr>
-		<tr><td>Phone No</td><td>:${merchant.phoneNo}</td></tr>
-		<tr><td>Merchant Type</td><td>:${merchant.type}</td></tr>
-		</table> --%>
-	</div>
+		<br> <br>
+		<h2>All Discounts</h2>
+		
+		
+		<div>
+				<br> <br>
+				<table border="1" style="width: 50%">
+					<tr>
+						<th>Discount Id</th>
+						<th>Discount Percent</th>
+						<th>Time Period</th>
+					</tr>
+					<c:forEach items="${discount}" var="discount">
+						<tr>
+							<td>${discount.discountId}</td>
+							<td>${discount.discountPercent}</td>
+							<td>${discount.timePeriod}</td>
+
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</div>
+		
+		</div>
+		
+		</form>
+		
 </body>
 </html>

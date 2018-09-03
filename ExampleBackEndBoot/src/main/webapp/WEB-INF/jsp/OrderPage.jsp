@@ -4,16 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Order Page</title>
 </head>
 <body>
-	<h1>Search Here..</h1>
-	<form action="/wel">
-		<label>Id</label>
-		<input type="text" name="id" value="DS50">
-		<input type="submit">
-	</form>
-	<br>
-	
+<div class="site-name" style="color: Red; font-size: 50px">
+			<b>CapStore</b>&nbsp; &nbsp; <img
+				src="C:\Users\bsruthi\Desktop\capstore.png" width="125" height="125" />
+		</div>
+		
+		
 </body>
 </html>

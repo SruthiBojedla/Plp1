@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Discount And Promos</title>
+<title>Add Promos</title>
 </head>
 <body>
 	<div class="header-container">
@@ -32,18 +32,55 @@
              <a href="${pageContext.request.contextPath}/order">Order
 				</a>&nbsp;|&nbsp;
             <a href="MessagesPage.jsp""${pageContext.request.contextPath}/contact">Messages
-				</a>
+				</a>&nbsp;|&nbsp;
+			<a href="DandP.jsp""${pageContext.request.contextPath}/discounts&promos">Discounts
+					& Promos </a>
+					</j:if>
+					</div>
+					
 		</div>
-		<br>
-		<br>
-		<div align="center">
-		<a href="AddDiscount.jsp""${pageContext.request.contextPath}/discount">Add Discount </a><br> <br> 
-		<a href="AddPromo.jsp""${pageContext.request.contextPath}/promo">Add Promos </a><br><br>
-		<a href="ViewAllDiscounts.jsp""${pageContext.request.contextPath}/discount">View All Discounts </a><br> <br> 
-		<a href="ViewAllPromos.jsp""${pageContext.request.contextPath}/discount">View All Promos </a><br> <br> 
-		<a href="FindDiscountById.jsp""${pageContext.request.contextPath}/discount">Find Discount By Id </a><br> <br> 
-		<a href="FindPromoById.jsp""${pageContext.request.contextPath}/discount">Find Promo By Id </a><br> <br> 
+		<form action="/addPromo" method="post" modelAttribute="promo" enctype="multipart/form-data">
+		<div>
+			<table>
+			<tr><h2>Add Promo</h2></tr>
+				<tr>
+					<td>Promo code:</td>
+					<td><input type="text" name="promoCode" required /></td>
+				</tr>
+
+				<tr>
+					<td>Discount Percent:</td>
+					<td><input type="text" name="discount" required/>%</td>
+				</tr>
+
+				<tr>
+					<td>Time Period :</td>
+					<td><input type="text" name="timePeriod" required/></td>
+				</tr>
+			</table>
+			<br>
+			<button type="submit" onclick="alertBox()">Add PromoCode</button>
+			&nbsp; &nbsp;
+
 		</div>
-		</j:if>
+		</form>
+		<script type="text/javascript">
+		function alertBox(){
+			var promo_code=document.addPromo.promo_code.value;  
+			var discount_Percent=document.addPromo.discount_Percent.value; 
+			var promo_time=document.addPromo.promo_time.value;
+			if(((promo_code==null || promo_code=="") && (discount_Percent==null || discount_Percent=="") && (promo_time==null || promo_time=="") ))
+			{
+			
+			}
+		else{
+			alert("Promo Added Successfully");
+		}
+			
+		}
+		
+		</script>
+	
+		
 </body>
 </html>

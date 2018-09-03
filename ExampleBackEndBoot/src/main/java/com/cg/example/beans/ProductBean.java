@@ -11,7 +11,6 @@ public class ProductBean {
 	private String productId;
 	private String productName;
 	private Double price;
-	private List<MerchantBean> merchant;
 	private int quantity;
 	private String category;
 	private PromosBean promoCode;
@@ -37,13 +36,6 @@ public class ProductBean {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	public List<MerchantBean> getMerchant() {
-		return merchant;
-	}
-	public void setMerchant(List<MerchantBean> merchant) {
-		this.merchant = merchant;
-	}
-	
 	public String getCategory() {
 		return category;
 	}
@@ -74,14 +66,13 @@ public class ProductBean {
 	public void setFeedbackProduct(List<FeedbackProductBean> feedbackProduct) {
 		this.feedbackProduct = feedbackProduct;
 	}
-	public ProductBean(String productId, String productName, Double price, List<MerchantBean> merchant, int quantity,
+	public ProductBean(String productId, String productName, Double price, int quantity,
 			String category, PromosBean promoCode, DiscountBean discount, List<ImageBean> imageId,
 			List<FeedbackProductBean> feedbackProduct) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
 		this.price = price;
-		this.merchant = merchant;
 		this.quantity = quantity;
 		this.category = category;
 		this.promoCode = promoCode;
@@ -99,5 +90,14 @@ public class ProductBean {
 	public ProductBean() {
 		super();
 	}
+	@Override
+	public String toString() {
+		return "ProductBean [productId=" + productId + ", productName=" + productName + ", price=" + price
+				 + ", quantity=" + quantity + ", category=" + category + ", promoCode="
+				+ promoCode + ", discount=" + discount + ", imageId=" + imageId + ", feedbackProduct=" + feedbackProduct
+				+ "]";
+	}
+	
+	
 	
 }

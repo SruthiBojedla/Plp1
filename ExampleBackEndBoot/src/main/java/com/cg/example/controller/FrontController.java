@@ -1,14 +1,23 @@
 package com.cg.example.controller;
 
 import java.sql.Date;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.cg.example.beans.DiscountBean;
+import com.cg.example.beans.FeedbackProductBean;
+import com.cg.example.beans.ImageBean;
+import com.cg.example.beans.ProductBean;
+import com.cg.example.beans.PromosBean;
 
 @RestController
 public class FrontController {
@@ -17,12 +26,8 @@ public class FrontController {
 	public String consume(){
 		return "REST Consumer";
 	}
-	/*public ModelMap showWel(Integer d) {
-		return null;
-		
-	}*/
 	
-	@RequestMapping(value="/wel")
+	@RequestMapping(value="/DiscountDetails")
 	public ModelMap showWelcomePage(String id, ModelMap model){
 		
 		RestTemplate restTemplate = new RestTemplate();
@@ -32,7 +37,37 @@ public class FrontController {
 		return model;
 	}
 	
-	@RequestMapping(value="/discountadd")
+	@RequestMapping(value="/ProductDetails")
+	public ModelMap findByProductId(String id, ModelMap model,ProductBean product1){
+		
+		RestTemplate restTemplate = new RestTemplate();
+		ProductBean product = restTemplate.getForObject("http://localhost:9090/getProductdetailsById?productId="+id, ProductBean.class);
+		System.out.println(product);
+		model.put("product", product);
+		return model;
+	}
+	
+	@RequestMapping(value="/PromoDetails")
+	public ModelMap findPromoById(String id, ModelMap model){
+		
+		RestTemplate restTemplate = new RestTemplate();
+		PromosBean promo = restTemplate.getForObject("http://localhost:9090/viewPromoById?pId="+id, PromosBean.class);
+		System.out.println(promo);
+		model.put("promo", promo);
+		return model;
+	}
+	
+	@RequestMapping(value="/Categories")
+	public ModelMap findByCategory(String id, ModelMap model){
+		
+		RestTemplate restTemplate = new RestTemplate();
+		List<ProductBean> response = restTemplate.getForObject("http://localhost:9090/getProductbyCategory?category="+id, List.class);
+		System.out.println(response);
+		model.put("products", response);
+		return model;
+	}
+	
+	/*@RequestMapping(value="/discountadd")
 	public DiscountBean consumeMessage(){
 		DiscountBean discount=new DiscountBean();
 		discount.setDiscountId("DS70");
@@ -41,7 +76,7 @@ public class FrontController {
 		RestTemplate restTemplate = new RestTemplate();
 		DiscountBean discount1 = restTemplate.postForObject("http://localhost:9090/adddiscount",discount, DiscountBean.class);
 		return discount1;
-	}
+	}*/
 	
 	@RequestMapping(value="/viewByid")
 	public DiscountBean viewByDiscountId(){
@@ -51,33 +86,123 @@ public class FrontController {
 		
 		return message;
 	}
-	/*@RequestMapping(value="/quote")
-	public Quote consumeQuote(){
+	
+	@RequestMapping(value="/addDiscount",method=RequestMethod.POST)
+	DiscountBean addDiscountByMerchant(Model model,DiscountBean discount) {
+		model.addAttribute("discount", discount);
+		System.out.println(discount.toString());
 		RestTemplate restTemplate = new RestTemplate();
-		Quote quote = restTemplate.getForObject("http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
 		
-		return quote;
+		DiscountBean str=restTemplate.postForObject("http://localhost:9090/adddiscount", discount, DiscountBean.class);
+		
+		return str;
 	}
 	
-	@RequestMapping(value="/message")
-	public Message consumeMessage(){
+	@RequestMapping(value="/addPromo",method=RequestMethod.POST)
+	Model addPromoByMerchant(Model model,PromosBean promo) {
+		model.addAttribute("promo", promo);
+		System.err.println(promo);
+		System.err.println("sending..");
 		RestTemplate restTemplate = new RestTemplate();
-		Message message = restTemplate.getForObject("http://localhost:9090/getmessage?id=13", Message.class);
-		
-		
-		return message;
+		String promoBean=restTemplate.postForObject("http://localhost:9090/addpromo", promo, String.class);
+		System.err.println("Got data.."+promoBean);
+		//model.addAttribute("promoBean", promoBean);
+		return model;
 	}
 	
-	@RequestMapping(value="/send")
-	public Message sendMessage(){
-		Message m = new Message();
-		m.setText("Java client Posting message");
-		m.setSender(new Sender("Java Client"));
-		System.out.println(m);
-		RestTemplate restTemplate = new RestTemplate();
-		Message message = restTemplate.postForObject("http://localhost:9090/receive",m, Message.class);
+	@RequestMapping(value="/addProduct",method = RequestMethod.POST)
+	ProductBean addProductByMerchant(Model model,ProductBean productBean/*,ImageBean imageBean,FeedbackProductBean feedback*/,PromosBean promoBean,DiscountBean discount) {
 		
-		return message;
+		model.addAttribute("product",productBean);
+		/*model.addAttribute("image",imageBean);
+		model.addAttribute("feedback",feedback);*/
+		model.addAttribute("promoCode", promoBean);
+		model.addAttribute("discount", discount);
+		System.out.println(productBean.toString());
+		RestTemplate restTemplate = new RestTemplate();
+		
+		ProductBean productBean1=restTemplate.postForObject("http://localhost:9090/addNewProduct", productBean, ProductBean.class);
+		return productBean1;
+		
+	}
+	
+	@RequestMapping(value="/updateProduct",method = RequestMethod.PUT)
+	String updateProductByMerchant(Model model,ProductBean productBean,ImageBean imageBean,FeedbackProductBean feedback,PromosBean promoBean,DiscountBean discount) {
+		
+		model.addAttribute("product",productBean);
+		model.addAttribute("image",imageBean);
+		model.addAttribute("feedback",feedback);
+		model.addAttribute("promoCode", promoBean);
+		model.addAttribute("discountId", discount);
+		System.out.println(productBean.toString());
+		RestTemplate restTemplate = new RestTemplate();
+		
+		String str=restTemplate.postForObject("http://localhost:9090/updateProductDetails", productBean, String.class);
+		return str;
+		
+	}
+	
+	@RequestMapping("/ViewAllDiscounts")
+	public ModelMap viewAllDiscounts(ModelMap model) {
+		RestTemplate restTemplate = new RestTemplate();
+		List<DiscountBean> response = restTemplate.getForObject("http://localhost:9090/viewAllDiscounts", List.class);
+		model.put("discount", response);
+		return model;
+	}
+	
+	@RequestMapping("/ViewAllPromos")
+	public ModelMap viewAllPromos(ModelMap model) {
+		RestTemplate restTemplate = new RestTemplate();
+		List<PromosBean> response = restTemplate.getForObject("http://localhost:7776/viewallcust", List.class);
+		model.put("promo", response);
+		return model;
+	}
+	
+	@RequestMapping("/ViewAllProducts")
+	public ModelMap viewAllProducts(ModelMap model) {
+		RestTemplate restTemplate = new RestTemplate();
+		List<ProductBean> response = restTemplate.getForObject("http://localhost:9090/displayAllProducts", List.class);
+		model.put("product", response);
+		return model;
+	}
+	
+	@RequestMapping("/ViewAllCategories")
+	public ModelMap viewAllProductsByCategories(ModelMap model) {
+		RestTemplate restTemplate = new RestTemplate();
+		List<ProductBean> response = restTemplate.getForObject("http://localhost:9090/displayAllCategory", List.class);
+		model.put("product", response);
+		return model;
+	}
+	
+	@RequestMapping(value="/RemoveProduct",method = RequestMethod.DELETE)
+	public String removeProductByMerchant(ProductBean productBean,String id) {
+		RestTemplate restTemplate = new RestTemplate();
+		String str=restTemplate.postForObject("http://localhost:9090/deleteProduct?productId="+id, productBean, String.class);
+		return str;
+		
+	}
+	
+	@RequestMapping(value="/RemoveCategory",method = RequestMethod.DELETE)
+	public String removeCategoryByMerchant(ProductBean productBean,String id) {
+		RestTemplate restTemplate = new RestTemplate();
+		String str=restTemplate.postForObject("http://localhost:9090/removeExistingCategory?category="+id, productBean, String.class);
+		return str;
+		
+	}
+	/*@RequestMapping(value = "/addingFeedback", method = RequestMethod.POST)
+	public List<FeedbackProductBean> addingFeedback(Model model,String productId, FeedbackProductBean feedbackProductBean)
+			 {
+		
+		model.addAttribute("feedback", feedbackProductBean);
+		//model.addAttribute("product", productId);
+		System.out.println("feedback"+feedbackProductBean);
+		System.out.println("productid"+productId);
+		RestTemplate restTemplate = new RestTemplate();
+		List<FeedbackProductBean>feedback = restTemplate.postForObject("http://localhost:9010/addingFeedback?productId="+productId,feedbackProductBean, List.class);
+		System.out.println("feedback result"+feedback);
+		
+		return feedback;
 	}*/
+	
 	
 }

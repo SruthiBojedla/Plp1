@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Promo by Id</title>
 </head>
 <body>
+
+
 	<div class="header-container">
 		<div class="site-name" style="color: Red; font-size: 50px">
 			<b>CapStore</b>&nbsp; &nbsp; <img
@@ -14,10 +16,16 @@
 		</div>
 		<div class="header-bar" align="Right">
 			<j:if test="${pageContext.request.userPrincipal.name != null}">
-        Hello Japan  &nbsp;|&nbsp;
-           <a href="${pageContext.request.contextPath}/logout">Logout</a>
+        Hello Merchant ${merchant.merchantName}  &nbsp;|&nbsp;
+           <a href="${pageContext.request.contextPath}/logout"
+					onclick="alertName()">Logout</a>
 				<br>
 				<br>
+				<script type="text/javascript">
+					function alertName() {
+						alert("Logged out Successfully");
+					}
+				</script>
 
 				<a href="Home.jsp""${pageContext.request.contextPath}/home">Home
 				</a> &nbsp;|&nbsp;
@@ -25,33 +33,27 @@
 					Management </a>&nbsp;|&nbsp;
              <a href="${pageContext.request.contextPath}/order">Order
 				</a>&nbsp;|&nbsp;
-            <a href="${pageContext.request.contextPath}/contact">Contact
+            <a href="MessagesPage.jsp""${pageContext.request.contextPath}/contact">Messages
 				</a>&nbsp;|&nbsp;
-			<a href="DandP.jsp""${pageContext.request.contextPath}/discounts&promos">Discounts
+			<a href="DandP.jsp""${pageContext.request.contextPath}/discounts_promos">Discounts
 					& Promos </a>
+			</j:if>		
 		</div>
+
 		<div>
-			<table>
-				<tr>
-					<td>Promo code:</td>
-					<td><input type="text" name="promo_code" /></td>
-				</tr>
+		<br>
+		<br>
+		<br>
+		<br>
+ <form action="/PromoDetails">
+ <label>PromoId</label>
+		<input type="text" name="id" value="AUG15"><br>
+		<input type="submit">
+	</form>
+	<br>
 
-				<tr>
-					<td>Discount Percent:</td>
-					<td><input type="text" name="discount_Percent" />%</td>
-				</tr>
+</div>
 
-				<tr>
-					<td>Time Period :</td>
-					<td><input type="text" name="promo_time" /></td>
-				</tr>
-			</table>
-			<br>
-			<button type="submit">Add PromoCode</button>
-			&nbsp; &nbsp;
 
-		</div>
-		</j:if>
 </body>
 </html>

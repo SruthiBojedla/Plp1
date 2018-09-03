@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Remove Product</title>
 </head>
 <body>
 	<div class="site-name" style="color: Red; font-size: 50px">
@@ -14,17 +14,23 @@
 
 	<div class="header-bar" align="Right">
 		<j:if test="${pageContext.request.userPrincipal.name != null}">
-        Hello Japan  &nbsp;|&nbsp;
-           <a href="${pageContext.request.contextPath}/logout">Logout</a>
+        Hello Merchant  &nbsp;|&nbsp;
+            <a href="${pageContext.request.contextPath}/logout"
+				onclick="alertName()">Logout</a>
 			<br>
 			<br>
+			<script type="text/javascript">
+				function alertName() {
+					alert("Logged out Successfully");
+				}
+			</script>
 			<a href="Home.jsp""${pageContext.request.contextPath}/home">Home
 			</a> &nbsp;|&nbsp;
              <a href="ProductManagement.jsp""${pageContext.request.contextPath}/productManagement">Product
 				Management </a>&nbsp;|&nbsp;
              <a href="${pageContext.request.contextPath}/order">Order
 			</a>&nbsp;|&nbsp;
-            <a href="${pageContext.request.contextPath}/contact">Contact
+            <a href="MessagesPage.jsp""${pageContext.request.contextPath}/contact">Messages
 			</a>&nbsp;|&nbsp;
 			<a href="DandP.jsp""${pageContext.request.contextPath}/discounts&promos">Discounts
 				& Promos </a>
@@ -37,7 +43,7 @@
 	</div>
 	<br>
 	<br>
-	<form action="action_page.php">
+	<form name="deleteProduct" method="post" onclick="alertBox()">
 		<table>
 
 			<tr>
@@ -49,7 +55,22 @@
 		<br>
 		<button type="submit">Remove</button>
 		&nbsp; &nbsp; &nbsp;
+		<script type="text/javascript">
+			function alertBox() {
 
+				var id = document.deleteProduct.pId.value;
+				
+				if (!(id==null || id=="")) {
+					
+					alert("Product Removed");
+				
+				}
+				/* else
+					{
+					
+					} */
+			}
+		</script>
 
 
 	</form>

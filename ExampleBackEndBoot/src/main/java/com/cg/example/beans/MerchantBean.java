@@ -15,7 +15,14 @@ public class MerchantBean {
 	private List<OrderBean> order;
 	private String password;
 	private List<CouponsBean> coupons;
+	private List<ProductBean> product;
 	
+	public List<ProductBean> getProduct() {
+		return product;
+	}
+	public void setProduct(List<ProductBean> product) {
+		this.product = product;
+	}
 	public String getEmailId() {
 		return emailId;
 	}

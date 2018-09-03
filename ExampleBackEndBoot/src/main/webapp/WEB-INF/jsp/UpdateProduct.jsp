@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Update Product</title>
 </head>
 <body>
 
@@ -15,17 +15,23 @@
 
 	<div class="header-bar" align="Right">
 		<j:if test="${pageContext.request.userPrincipal.name != null}">
-        Hello Japan  &nbsp;|&nbsp;
-           <a href="${pageContext.request.contextPath}/logout">Logout</a>
+        Hello Merchant  &nbsp;|&nbsp;
+           <a href="${pageContext.request.contextPath}/logout"
+				onclick="alertName()">Logout</a>
 			<br>
 			<br>
+			<script type="text/javascript">
+					function alertName() {
+						alert("Logged out Successfully");
+					}
+				</script>
 			<a href="Home.jsp""${pageContext.request.contextPath}/home">Home
 			</a> &nbsp;|&nbsp;
              <a href="ProductManagement.jsp""${pageContext.request.contextPath}/productManagement">Product
 				Management </a>&nbsp;|&nbsp;
              <a href="${pageContext.request.contextPath}/order">Order
 			</a>&nbsp;|&nbsp;
-            <a href="${pageContext.request.contextPath}/contact">Contact
+            <a href="MessagesPage.jsp""${pageContext.request.contextPath}/contact">Messages
 			</a>&nbsp;|&nbsp;
 			<a href="DandP.jsp""${pageContext.request.contextPath}/discounts&promos">Discounts
 				& Promos </a>
@@ -38,18 +44,18 @@
 	</div>
 	<br>
 	<br>
-	<form action="action_page.php">
+	<form action="/updateProduct" onsubmit="alertBox()" modelAttribute="product" enctype="multipart/form-data">
 		<table>
 
 			<tr>
 				<label for="id"><td><b>Product Id:</b></td></label>
-				<td><input type="text" name="pId" required /></td>
+				<td><input type="text" name="productId" required /></td>
 			</tr>
 
 
 			<tr>
 				<label for="name"><td><b>Product Name:</b></td></label>
-				<td><input type="text" name="pName" required /></td>
+				<td><input type="text" name="productName" required /></td>
 			</tr>
 
 			<tr>
@@ -59,23 +65,32 @@
 
 			<tr>
 				<label for="quantity"><td><b>Product Quantity:</b></td></label>
-				<td><input type="text" name="pQuantity" required /></td>
+				<td><input type="text" name="quantity" required /></td>
 			</tr>
 
 			<tr>
 				<label for="category"><td><b>Product Category:</b></td></label>
 				<td><select name="category">
+						<option value="">Choose Category</option>
 						<option value="Electronics">Electronics</option>
 						<option value="Clothing">Clothing</option>
 						<option value="Toys">Toys</option>
 						<option value="Pets">Pets</option>
 				</select></td>
 			</tr>
+<!--  <tr>
+				<td><b>Add Discount: </b></td>
+				<td><input type="text" name="discount" required></td>
+			</tr>
+			<tr>
+				<td><b>Add PromoCode: </b></td>
+				<td><input type="text" name="promo" required></td>
+			</tr>-->
 
 			<tr>
 				<label for="image"><td><b>Image:</b></td></label>
-				<td><input type="image" name="pImage" required /> <img
-					alt="Image Not Available" src=""></td>
+				<td><input type="image" name="imageId" required /> <img
+					alt="Image Not Available" src="" /></td>
 			</tr>
 
 			<tr>
@@ -89,6 +104,24 @@
 		<br>
 		<button type="submit">Update</button>
 		&nbsp; &nbsp; &nbsp;
+		<script type="text/javascript">
+		function alertBox() {
+			var Id=document.addProduct.pId.value;  
+			var pName=document.addProduct.pName.value; 
+			var price=document.addProduct.price.value;
+			var pQuantity=document.addProduct.pQuantity.value;
+			var discount=document.addProduct.discount.value;
+			var promo=document.addProduct.promo.value;
+			if(((Id==null || Id=="") && (pName==null || pName=="") && (price==null || price=="") && (pQuantity==null || pQuantity=="") && (discount==null || discount=="") && (promo==null || promo=="")))
+				{
+				
+				}
+			else{
+				alert("Product Updated Successfully");
+			}
+					}
+				</script>
+
 
 
 	</form>

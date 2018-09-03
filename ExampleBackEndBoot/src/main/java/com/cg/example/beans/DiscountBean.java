@@ -41,6 +41,11 @@ public class DiscountBean {
 	public DiscountBean() {
 		super();
 	}
+	@Override
+	public String toString() {
+		return "DiscountBean [discountId=" + discountId + ", discountPercent=" + discountPercent + ", timePeriod="
+				+ timePeriod + "]";
+	}
 
 	
 }

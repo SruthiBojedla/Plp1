@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Discount And Promos</title>
+<title>Add Discount</title>
 </head>
 <body>
 	<div class="header-container">
@@ -32,18 +32,56 @@
              <a href="${pageContext.request.contextPath}/order">Order
 				</a>&nbsp;|&nbsp;
             <a href="MessagesPage.jsp""${pageContext.request.contextPath}/contact">Messages
-				</a>
+				</a>&nbsp;|&nbsp;
+			<a href="DandP.jsp""${pageContext.request.contextPath}/discounts_promos">Discounts
+					& Promos </a>
+						</j:if>
 		</div>
 		<br>
 		<br>
-		<div align="center">
-		<a href="AddDiscount.jsp""${pageContext.request.contextPath}/discount">Add Discount </a><br> <br> 
-		<a href="AddPromo.jsp""${pageContext.request.contextPath}/promo">Add Promos </a><br><br>
-		<a href="ViewAllDiscounts.jsp""${pageContext.request.contextPath}/discount">View All Discounts </a><br> <br> 
-		<a href="ViewAllPromos.jsp""${pageContext.request.contextPath}/discount">View All Promos </a><br> <br> 
-		<a href="FindDiscountById.jsp""${pageContext.request.contextPath}/discount">Find Discount By Id </a><br> <br> 
-		<a href="FindPromoById.jsp""${pageContext.request.contextPath}/discount">Find Promo By Id </a><br> <br> 
+<form action="/addDiscount" method="post" onsubmit="alertBox()" modelAttribute="discount" enctype="multipart/form-data">
+		<div>
+			<table>
+			<tr><h2>Add Discount</h2></tr>
+				<tr>
+					<td>Discount Id:</td>
+					<td><input type="text" name="discountId" required/></td>
+				</tr>
+
+				<tr>
+					<td>Discount Percent:</td>
+					<td><input type="text" name="discountPercent" required />%</td>
+				</tr>
+
+				<tr>
+					<td>Time Period :</td>
+					<td><input type="text" name="timePeriod" required /></td>
+				</tr>
+			</table>
+			<br>
+			<button type="submit">Add Discount</button>
+			&nbsp; &nbsp;
+
 		</div>
-		</j:if>
+
+	
+		</form>
+		<script type="text/javascript">
+		function alertBox(){
+			var discount_id=document.addDiscount.discount_id.value;  
+			var discount_Percent=document.addDiscount.discount_Percent.value; 
+			var discount_time=document.addDiscount.discount_time.value;
+			if(((discount_id==null || discount_id=="") && (discount_Percent==null || discount_Percent=="") && (discount_time==null || discount_time=="") ))
+			{
+			
+			}
+		else{
+			alert("Discount Added Successfully");
+		}
+			
+		}
+		
+		</script>
+		</div>
 </body>
 </html>
